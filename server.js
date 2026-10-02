@@ -179,4 +179,20 @@ app.get('/api/donors', (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ BloodBridge Emergency Server running on http://localhost:${PORT}`);
+
+  // 24/7 Keep-Alive: Ping itself every 4 minutes so Render NEVER goes into sleep/spin-down mode
+  const https = require('https');
+  const http = require('http');
+  const keepAliveUrl = process.env.RENDER_EXTERNAL_URL || 'https://bloodbridge-server-2trk.onrender.com';
+  
+  setInterval(() => {
+    try {
+      const client = keepAliveUrl.startsWith('https') ? https : http;
+      client.get(`${keepAliveUrl}/api/health`, (res) => {
+        console.log(`[24/7 Keep-Alive] Pinged ${keepAliveUrl} - Status: ${res.statusCode}`);
+      }).on('error', (err) => {
+        console.warn('[24/7 Keep-Alive] Error:', err.message);
+      });
+    } catch (e) {}
+  }, 4 * 60 * 1000);
 });
