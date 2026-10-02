@@ -1,0 +1,16 @@
+{
+  "name": "bloodbridge-server",
+  "version": "1.0.0",
+  "description": "High-Speed Real-time Emergency Backend Server for BloodBridge Bangladesh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["blood-donation", "emergency-network", "bangladesh", "bloodbridge"],
+  "author": "MD. Rafat Karim",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
